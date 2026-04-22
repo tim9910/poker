@@ -152,6 +152,7 @@
             // lblAmt
             // 
             this.lblAmt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAmt.Font = new System.Drawing.Font("微軟正黑體", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblAmt.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblAmt.Location = new System.Drawing.Point(119, 39);
             this.lblAmt.Name = "lblAmt";
@@ -171,9 +172,10 @@
             // 
             // txtDet
             // 
+            this.txtDet.Font = new System.Drawing.Font("微軟正黑體", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txtDet.Location = new System.Drawing.Point(429, 35);
             this.txtDet.Name = "txtDet";
-            this.txtDet.Size = new System.Drawing.Size(155, 39);
+            this.txtDet.Size = new System.Drawing.Size(155, 34);
             this.txtDet.TabIndex = 3;
             this.txtDet.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 

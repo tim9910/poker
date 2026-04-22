@@ -339,49 +339,58 @@ namespace poker
             double betAmount = 0;
             //總資金
             string txtAmt = lblAmt.Text.Replace("NT$", "").Replace(",", "").Trim();
-            double totalAmt = Convert.ToDouble(txtAmt);
-            string txtDetAmt = txtDet.Text.Replace("NT$", "").Replace(",", "").Trim();
-            double detAmt = Convert.ToDouble(txtDetAmt);
-            betAmount = totalAmt + detAmt * odds;
-
-            if (odds > 0)
+            double totalAmt = 0;
+            if (double.TryParse(txtAmt, out totalAmt))
             {
-                msgLabel.Text = $"你中了 {result}，賠率 {odds} 倍，獎金 {detAmt * odds:C0}";
-                betAmount += detAmt;
+
+                string txtDetAmt = txtDet.Text.Replace("NT$", "").Replace(",", "").Trim();
+                double detAmt = Convert.ToDouble(txtDetAmt);
+                betAmount = totalAmt + detAmt * odds;
+
+                if (odds > 0)
+                {
+                    msgLabel.Text = $"你中了 {result}，賠率 {odds} 倍，獎金 {detAmt * odds:C0}";
+                    betAmount += detAmt;
+                    msgLabel.Visible = true;
+                }
+                this.lblAmt.Text = string.Format("{0:C0}", betAmount);
+
+                await Task.Delay(2000);// 暫停2000ms
+
+                msgLabel.Text = "";
+                msgLabel.Visible = false;
+
+                this.txtDet.Tag = "NT$";
+                this.txtDet.Text = string.Format("{0:C0}", 0);
+
+                lblResult.Text = "";
+                btnChangeCard.Enabled = false;
+                btnCheck.Enabled = false;
+                btnDealCard.Enabled = false;
+                txtDet.Enabled = true;
+                btnDet.Enabled = true;
+
+                if (betAmount <= 0)
+                {
+                    // 總資金不足，遊戲結束或重置遊戲
+                    DialogResult rs = MessageBox.Show("總資金不足是否重置遊戲", "關閉視窗", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (rs == DialogResult.Yes)
+                    {
+                        reset();
+                    }
+                    else
+                    {
+                        // 關閉遊戲
+                        this.Close();
+                    }
+
+                }
+            } 
+            else
+            {
+                msgLabel.Text = "總資金金額無效";
                 msgLabel.Visible = true;
-            }
-            this.lblAmt.Text = string.Format("{0:C0}", betAmount);
-
-            await Task.Delay(2000);// 暫停2000ms
-
-            msgLabel.Text = "";
-            msgLabel.Visible = false;
-
-            this.txtDet.Tag = "NT$";
-            this.txtDet.Text = string.Format("{0:C0}", 0);
-
-            lblResult.Text = "";
-            btnChangeCard.Enabled = false;
-            btnCheck.Enabled = false;
-            btnDealCard.Enabled = false;
-            txtDet.Enabled = true;
-            btnDet.Enabled = true;
-
-            if (totalAmt <= 0)
-            {
-                // 總資金不足，遊戲結束或重置遊戲
-                DialogResult rs = MessageBox.Show("總資金不足是否重置遊戲", "關閉視窗", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                if (rs == DialogResult.Yes)
-                {
-                    reset();
-                }
-                else
-                {
-                    // 關閉遊戲
-                    this.Close();
-                }
-
             }
 
         }
