@@ -21,13 +21,18 @@ namespace poker
         int[] allPoker = new int[52];
         int[] playerPoker = new int[5];
         int[] poker = new int[5];
+        ToolTip toolTip = null;
 
         public frmPoker()
         {
             InitializeComponent();
             InitializePoker();
         }
-
+        private void initToolTip()
+        {
+            toolTip = new ToolTip();
+            toolTip.SetToolTip(txtDet, "押注金額 > 0 且 <= 總資金");
+        }
         private void InitializePoker()
         {
             // 動態產生5張牌
@@ -46,7 +51,7 @@ namespace poker
                 this.grpPoker.Controls.Add(pic[i]);
                 pic[i].MouseClick += new MouseEventHandler(pic_Click);
             }
-
+            initToolTip();
             //btnDealCard.Enabled = true;
         }
 
@@ -151,6 +156,7 @@ namespace poker
 
         private void frmPoker_KeyPress(object sender, KeyPressEventArgs e)
         {
+            Debug.WriteLine($"KeyPress: {e.KeyChar} ({(int)e.KeyChar})");
             if (btnDealCard.Enabled == false)
             {
                 switch ((int)e.KeyChar)
@@ -203,19 +209,48 @@ namespace poker
                         playerPoker[3] = 14;
                         playerPoker[4] = 13;
                         break;
+
+                    case 97: // a鍵
+                              // 順子
+                        playerPoker[0] = 34;
+                        playerPoker[1] = 28;
+                        playerPoker[2] = 24;
+                        playerPoker[3] = 20;
+                        playerPoker[4] = 16;
+                        break;
+
+                    case 115: // s鍵
+                             // 二對  
+                        playerPoker[0] = 45;
+                        playerPoker[1] = 46;
+                        playerPoker[2] = 13;
+                        playerPoker[3] = 14;
+                        playerPoker[4] = 16;
+                        break;
+
+                    case 100: // d鍵
+                             // 一對
+                        playerPoker[0] = 34;
+                        playerPoker[1] = 28;
+                        playerPoker[2] = 24;
+                        playerPoker[3] = 13;
+                        playerPoker[4] = 14;
+                        break;
                 }
                 // 顯示五張撲克牌到桌面上
-                if (e.KeyChar == 113 || e.KeyChar == 119 || e.KeyChar == 101 || e.KeyChar == 114 || e.KeyChar == 116 || e.KeyChar == 121)
+                if (e.KeyChar == 113 || e.KeyChar == 119 || e.KeyChar == 101 || e.KeyChar == 114 || e.KeyChar == 116 || e.KeyChar == 121 || e.KeyChar == 97 || e.KeyChar == 115 || e.KeyChar == 100)
                 {
                     ShowCards();
+                    CheckPoker();
                     btnCheck.Enabled = true;
                 }
 
             }
         }
 
-        private async void btnCheck_Click(object sender, EventArgs e)
+        private (string, string) CheckPoker()
         {
+            // 判斷牌型
             string[] colorList = { "梅花", "方塊", "愛心", "黑桃" };
             string[] pointList = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
@@ -282,35 +317,43 @@ namespace poker
                 tag = "皇家同花順";
 
             }
-            else if(isStraightFlush) {
+            else if (isStraightFlush)
+            {
                 result = $"{colorList[0]} 同花順";
                 tag = "同花順";
             }
-            else if(isStraight) {
+            else if (isStraight)
+            {
                 result = "順子";
                 tag = "順子";
             }
-            else if(isFourOfAKind) {
+            else if (isFourOfAKind)
+            {
                 result = $"{pointList[0]} 鐵支";
                 tag = "四條";
             }
-            else if(isFullHouse) {
+            else if (isFullHouse)
+            {
                 result = $"{pointList[0]}三張{pointList[1]}兩張 葫蘆";
                 tag = "葫蘆";
             }
-            else if(isFlush) {
+            else if (isFlush)
+            {
                 result = $"{colorList[0]} 同花";
                 tag = "同花";
             }
-            else if(isThreeOfAKind) {
+            else if (isThreeOfAKind)
+            {
                 result = $"{pointList[0]} 三條";
                 tag = "三條";
             }
-            else if(isTwoPair) {
+            else if (isTwoPair)
+            {
                 result = $"{pointList[0]},{pointList[1]} 兩對";
                 tag = "兩對";
             }
-            else if(isOnePair) {
+            else if (isOnePair)
+            {
                 result = $"{pointList[0]} 一對";
                 tag = "一對";
             }
@@ -320,6 +363,15 @@ namespace poker
             }
 
             lblResult.Text = result;
+            return (tag, result);
+        }
+
+        private async void btnCheck_Click(object sender, EventArgs e)
+        {
+            var chk = CheckPoker();// 判斷牌型
+            string tag = chk.Item1;
+            string result = chk.Item2;
+
             // 根據牌型賠率計算中獎金額
             var betOdds = new Dictionary<string, double>
             {
@@ -415,8 +467,14 @@ namespace poker
             string currentText = textBox.Text;
             msgLabel.Text = "";
             msgLabel.Visible = false;
+            if ( (btnDealCard.Enabled == false) && (e.KeyChar == 113 || e.KeyChar == 119 || e.KeyChar == 101 || e.KeyChar == 114 || e.KeyChar == 116 || e.KeyChar == 121 || e.KeyChar == 97 || e.KeyChar == 115 || e.KeyChar == 100))
+            {
+                msgLabel.Visible = true;
+                msgLabel.Text = "你按了秘技按鍵: " + e.KeyChar + " 測試牌型";
+                e.Handled = true;  // 阻止輸入非數字
+            }
             // 只允許數字、小數點和控制鍵（倒退鍵等）
-            if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
+            else if (!Char.IsControl(e.KeyChar) && !Char.IsDigit(e.KeyChar))
             {
 
                 msgLabel.Text = "只能輸入數字";
