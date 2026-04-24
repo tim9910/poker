@@ -564,25 +564,6 @@ namespace poker
                 // 游標移到末尾
                 textBox.SelectionStart = textBox.Text.Length;
             }
-            //else
-            //{
-            //    if (controlName == "txtDet")
-            //    {
-            //        if (dataValue != null && dataValue.Length >= 10)
-            //        {
-            //            msgLabel.Text = "房屋總價 0~10,000萬";
-            //            msgLabel.Visible = true;
-            //        }
-            //        else
-            //        {
-            //            msgLabel.Text = "";
-            //            msgLabel.Visible = false;
-            //        }
-
-            //    }
-            //    msgLabel.Text = "輸入的數值無效";
-            //    msgLabel.Visible = true;
-            //}
         }
 
         private void TextBox_Validating(object sender, CancelEventArgs e)
@@ -666,24 +647,6 @@ namespace poker
                 // 游標移到末尾
                 textBox.SelectionStart = textBox.Text.Length;
             }
-            //else
-            //{
-            //    if (textBox.Name == "txtTotalHousePrice")
-            //    {
-            //        if (dataValue != null && dataValue.Length >= 10)
-            //        {
-            //            msgLabel.Text = spacestr + "房屋總價 0~10,000萬";
-            //            msgLabel.Visible = true;
-            //            e.Cancel = true;// 阻止焦點離開
-            //        }
-            //        else
-            //        {
-            //            msgLabel.Text = "";
-            //            msgLabel.Visible = false;
-            //        }
-
-            //    }
-            //}
         }
 
         private void TextBox_Leave(object sender, EventArgs e)

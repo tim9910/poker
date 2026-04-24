@@ -46,15 +46,15 @@
 
 | 牌型       | 賠率 |     範例           |
 |------------|------|--------------------|
-| 皇家同花順 |  250 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/q.png) |
-| 同花順     |   50 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/w.png) |
-| 四條       |   25 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/r.png) |
-| 葫蘆       |    9 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/t.png) |
-| 同花       |    6 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/e.png) |
-| 順子       |    4 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/a.png) |
-| 三條       |    3 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/y.png) |
-| 兩對       |    2 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/s.png) |
-| 一對       |    1 | ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/d.png) |
+| 皇家同花順 |  250 | ![皇家同花順](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/q.png) |
+| 同花順     |   50 | ![同花順](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/w.png) |
+| 四條       |   25 | ![四條](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/r.png) |
+| 葫蘆       |    9 | ![葫蘆](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/t.png) |
+| 同花       |    6 | ![同花](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/e.png) |
+| 順子       |    4 | ![順子](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/a.png) |
+| 三條       |    3 | ![三條](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/y.png) |
+| 兩對       |    2 | ![兩對](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/s.png) |
+| 一對       |    1 | ![一對](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/d.png) |
 
 
 ## 檢核、防呆及提示機制
@@ -94,7 +94,7 @@
 
 ## 系統功能及測試
 
-### 案例1：秘技按鍵 'q'wertasd
+### 案例1：秘技按鍵(『發牌』按鈕未啟用時)
 
 | 按鍵 |    牌型    |
 |------|------------|
@@ -111,46 +111,22 @@
 　![Case1](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case1.gif)
 
 
-### 案例2：破產時
+### 案例2：破產時，選擇退出遊戲或重玩
 
 　![Case2](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case2.gif)
 
-### 案例3：皇家同花順 (賠率250)
-
-　![Case3](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case3.gif)
-
-### 案例4：同花順 (賠率50)
-
-　![Case4](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case4.gif)
-
-### 案例5：四條 (賠率25)
-
-　![Case5](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case5.gif)
-
-### 案例6：葫蘆 (賠率9)
-
-　![Case6](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case6.gif)
-
-### 案例7：同花 (賠率6)
-
-　![Case7](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case7.gif)
-
-### 案例8：順子 (賠率4)
-
-　![Case8](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case8.gif)
-
-### 案例9：三條 (賠率3)
+### 案例3：三條 (賠率3)
 
 　![Case9](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case9.gif)
 
-### 案例10：兩對 (賠率2)
+### 案例4：兩對 (賠率2)
 
 　![Case10](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case10.gif)
 
-### 案例11：一對 (賠率1)
+### 案例5：一對 (賠率1)
 
 　![Case11](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case11.gif)
 
-### 案例12：雜牌
+### 案例6：雜牌
 
 　![Case12](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case12.gif)
