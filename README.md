@@ -31,11 +31,11 @@
 
 ### UI畫面設計
 
-- 主畫面包含牌桌、下注、功能及訊息顯示區。
-- 牌桌區：用來顯示玩家的五張撲克牌
-- 下注區：用來顯示玩家的賭注，玩家可以在這個區域設定下注金額
-- 功能區：提供發牌、換牌及判斷牌型功能
-- 訊息顯示區：顯示遊戲過程的相關訊息及狀態
+主畫面包含牌桌、下注、功能及訊息顯示區。
+- 1.牌桌區：用來顯示玩家的五張撲克牌
+- 2.下注區：用來顯示玩家的賭注，玩家可以在這個區域設定下注金額
+- 3.功能區：提供發牌、換牌及判斷牌型功能
+- 4.訊息顯示區：顯示遊戲過程的相關訊息及狀態
 
   ![輸出](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/ui.png)
 
@@ -69,7 +69,7 @@
 
   ![數值範圍檢核](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/chkrange.gif)
 
-- 禁止非數字或不合法字元輸入，並於欄位下方顯示提示訊息。
+- 禁止非數字或不合法字元輸入(秘技按鍵'q','w','e','r','t','y','a','s','d'除外)，並於欄位下方顯示提示訊息。
 
   ![不合字元檢核](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/chk2.gif)
 
@@ -94,7 +94,9 @@
 
 ## 系統功能及測試
 
-### 案例1：秘技按鍵(『發牌』按鈕未啟用時)
+### 案例1：秘技按鍵功能測試(『發牌』按鈕未啟用時)
+
+### 1. 按下秘技按鍵
 
 | 按鍵 |    牌型    |
 |------|------------|
@@ -108,6 +110,10 @@
 |  s   | 兩對       |
 |  d   | 一對       |
 
+### 2. 輸入押注金額
+### 3. 點擊『押注』按鈕
+### 4. 點擊『判斷牌型』按鈕，即顯示對應的牌型結果及計算出賠率。
+
 　![Case1](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case1.gif)
 
 
@@ -115,15 +121,40 @@
 
 　![Case2](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case2.gif)
 
-### 案例3：三條 (賠率3)
+### 案例3：皇家同花順 (賠率250)
+
+　![Case8](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case3.gif)
+
+### 案例4：同花順 (賠率50)
+
+　![Case4](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case4.gif)
+
+### 案例5：四條 (賠率25)
+
+　![Case5](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case5.gif)
+
+### 案例6：葫蘆 (賠率9)
+
+　![Case6](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case6.gif)
+
+### 案例7：同花 (賠率6)
+
+　![Case7](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case7.gif)
+
+### 案例8：順子 (賠率4)
+
+　![Case8](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case8.gif)
+
+
+### 案例9：三條 (賠率3)
 
 　![Case9](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case9.gif)
 
-### 案例4：兩對 (賠率2)
+### 案例10：兩對 (賠率2)
 
 　![Case10](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case10.gif)
 
-### 案例5：一對 (賠率1)
+### 案例11：一對 (賠率1)
 
 　![Case11](https://github.com/tim9910/tim9910.github.io/blob/main/images/poker/case11.gif)
 

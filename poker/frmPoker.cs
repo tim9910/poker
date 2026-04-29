@@ -26,12 +26,102 @@ namespace poker
         public frmPoker()
         {
             InitializeComponent();
+            //customize button image
+            // 押注按鈕
+            btnDet.Image = GetImage("money4");
+            btnDet.Text = "";
+            btnDet.FlatStyle = FlatStyle.Flat;//去除按鈕邊框
+            btnDet.ImageAlign = ContentAlignment.MiddleCenter;//圖片置中
+            btnDet.FlatAppearance.BorderSize = 0; 
+            btnDet.BackColor = Color.Transparent; //按鈕背景透明
+            btnDet.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent; //按下時背景透明
+            btnDet.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            btnDet.MouseEnter += (sender, e) =>
+            {
+                btnDet.Image = ResizeImage(GetImage("money4"), new Size(48, 48));
+            };
+
+            btnDet.MouseLeave += (sender, e) =>
+            {
+                btnDet.Image = ResizeImage(GetImage("money4"), new Size(44, 44));
+            };
+            btnDet.Enabled = true;
+
+            //發牌按鈕
+            btnDealCard.Image = GetImage("dealcard");
+            btnDealCard.Text = "";
+            btnDealCard.FlatStyle = FlatStyle.Flat;//去除按鈕邊框
+            btnDealCard.ImageAlign = ContentAlignment.MiddleCenter;//圖片置中
+            btnDealCard.FlatAppearance.BorderSize = 0;
+            btnDealCard.BackColor = Color.Transparent; //按鈕背景透明
+            btnDealCard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent; //按下時背景透明
+            btnDealCard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            btnDealCard.MouseEnter += (sender, e) =>
+            {
+                btnDealCard.Image = ResizeImage(GetImage("dealcard"), new Size(48, 48));
+            };
+
+            btnDealCard.MouseLeave += (sender, e) =>
+            {
+                btnDealCard.Image = ResizeImage(GetImage("dealcard"), new Size(44, 44));
+            };
+
+            //換牌按鈕
+            btnChangeCard.Image = GetImage("changecard");
+            btnChangeCard.Text = "";
+            btnChangeCard.FlatStyle = FlatStyle.Flat;//去除按鈕邊框
+            btnChangeCard.ImageAlign = ContentAlignment.MiddleCenter;//圖片置中
+            btnChangeCard.FlatAppearance.BorderSize = 0;
+            btnChangeCard.BackColor = Color.Transparent; //按鈕背景透明
+            btnChangeCard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent; //按下時背景透明
+            btnChangeCard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            btnChangeCard.MouseEnter += (sender, e) =>
+            {
+                btnChangeCard.Image = ResizeImage(GetImage("changecard"), new Size(48, 48));
+            };
+
+            btnChangeCard.MouseLeave += (sender, e) =>
+            {
+                btnChangeCard.Image = ResizeImage(GetImage("changecard"), new Size(44, 44));
+            };
+
+
+            //判斷牌型按鈕
+            btnCheck.Image = GetImage("check");
+            btnCheck.Text = "";
+            btnCheck.FlatStyle = FlatStyle.Flat;//去除按鈕邊框
+            btnCheck.ImageAlign = ContentAlignment.MiddleCenter;//圖片置中
+            btnCheck.FlatAppearance.BorderSize = 0;
+            btnCheck.BackColor = Color.Transparent; //按鈕背景透明
+            btnCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent; //按下時背景透明
+            btnCheck.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            btnCheck.MouseEnter += (sender, e) =>
+            {
+                btnCheck.Image = ResizeImage(GetImage("check"), new Size(48, 48));
+            };
+
+            btnCheck.MouseLeave += (sender, e) =>
+            {
+                btnCheck.Image = ResizeImage(GetImage("check"), new Size(44, 44));
+            };
+
             InitializePoker();
         }
+
+        private Image ResizeImage(Image img, Size size)
+        {
+            return new Bitmap(img, size);
+        }
+
+
         private void initToolTip()
         {
             toolTip = new ToolTip();
             toolTip.SetToolTip(txtDet, "押注金額 > 0 且 <= 總資金");
+            toolTip.SetToolTip(btnDet, "押注金額");
+            toolTip.SetToolTip(btnDealCard, "發牌");
+            toolTip.SetToolTip(btnChangeCard, "換牌");
+            toolTip.SetToolTip(btnCheck, "判斷牌型");
         }
         private void InitializePoker()
         {
@@ -154,9 +244,8 @@ namespace poker
             }
         }
 
-        private void frmPoker_KeyPress(object sender, KeyPressEventArgs e)
+        private async void frmPoker_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Debug.WriteLine($"KeyPress: {e.KeyChar} ({(int)e.KeyChar})");
             if (btnDealCard.Enabled == false)
             {
                 switch ((int)e.KeyChar)
@@ -240,6 +329,15 @@ namespace poker
                 // 顯示五張撲克牌到桌面上
                 if (e.KeyChar == 113 || e.KeyChar == 119 || e.KeyChar == 101 || e.KeyChar == 114 || e.KeyChar == 116 || e.KeyChar == 121 || e.KeyChar == 97 || e.KeyChar == 115 || e.KeyChar == 100)
                 {
+                    //蓋牌
+                    for (int i = 0; i < 5; i++)
+                    {
+                        pic[i].Image = GetImage("back");
+                        pic[i].Name = "pic" + i;
+                    }
+
+                    await Task.Delay(500);// 暫停500ms
+
                     ShowCards();
                     CheckPoker();
                     btnCheck.Enabled = true;
@@ -250,6 +348,8 @@ namespace poker
 
         private (string, string) CheckPoker()
         {
+            btnCheck.Enabled = false;
+            btnDealCard.Enabled = false;
             // 判斷牌型
             string[] colorList = { "梅花", "方塊", "愛心", "黑桃" };
             string[] pointList = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
@@ -668,7 +768,7 @@ namespace poker
                 pic[i].Name = "pic" + i;
                 pic[i].Enabled = false;//發牌之前，關閉pic[i]的事件，以免誤按
                 pic[i].Tag = "back";//記錄初始狀態為牌背
-                // 將pic 丟至到grpPorker內
+                
                 pic[i].MouseClick += new MouseEventHandler(pic_Click);
             }
 
@@ -690,7 +790,8 @@ namespace poker
 
         private void btnDet_Click(object sender, EventArgs e)
         {
-            btnDealCard.Enabled = true;
+
+            //btnDealCard.Enabled = true;
             txtDet.Enabled = false;
             btnDet.Enabled = false;
             //總資金
@@ -702,16 +803,28 @@ namespace poker
 
             this.lblAmt.Text = string.Format("{0:C0}", totalAmt - detAmt);
 
-            for (int i = 0; i < 5; i++)
+            //當按押注鈕時，會先判斷btnCheck是否啟用，如果btnCheck已經啟用，表示已經發牌(先按了秘技按鍵)
+            if (btnCheck.Enabled)
             {
-                pic[i].MouseClick -= new MouseEventHandler(pic_Click);
-                pic[i].Image = GetImage("back");
-                pic[i].Name = "pic" + i;
-                pic[i].Enabled = false;//發牌之前，關閉pic[i]的事件，以免誤按
-                pic[i].Tag = "back";//記錄初始狀態為牌背
-                // 將pic 丟至到grpPorker內
-                pic[i].MouseClick += new MouseEventHandler(pic_Click);
+                btnDealCard.Enabled = false;//如果已經發牌了，就不允許再按發牌鈕了，直接判斷牌型
             }
+            else
+            {
+                //還沒有發牌，啟用發牌鈕及蓋牌
+                btnDealCard.Enabled = true;
+                for (int i = 0; i < 5; i++)
+                {
+                    pic[i].MouseClick -= new MouseEventHandler(pic_Click);
+                    pic[i].Image = GetImage("back");
+                    pic[i].Name = "pic" + i;
+                    pic[i].Enabled = false;//發牌之前，關閉pic[i]的事件，以免誤按
+                    pic[i].Tag = "back";//記錄初始狀態為牌背
+                    pic[i].MouseClick += new MouseEventHandler(pic_Click);
+                }
+
+            }
+
+
 
         }
     }
